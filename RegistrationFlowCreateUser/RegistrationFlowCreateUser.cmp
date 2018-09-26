@@ -1,0 +1,36 @@
+<aura:component implements="lightning:availableForFlowScreens" controller="CommunitySelfRegController">
+    <aura:attribute name="email" type="String" default=""/>
+    <aura:attribute name="fname" type="String" default=""/>
+    <aura:attribute name="lname" type="String" default=""/>
+    <aura:attribute name="starturl" type="String" default=""/>
+    <aura:attribute name="password" type="String" default=""/>
+    <aura:attribute name="hasOptedTracking" type="Boolean" default="false"/>
+    <aura:attribute name="hasOptedSolicit" type="Boolean" default="false"/>
+    <aura:attribute name="products" type="String"/>
+    <aura:attribute name="error" type="String" default=""/>
+    <aura:attribute name="op_url" type="String" default="" description="login url after user is created. "/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+    <aura:if isTrue="{! not(empty(v.error))}">
+       <p class="slds-text-color_error">{!error}</p>
+    </aura:if>
+    
+        <!-- image the product manager added so it would demo pretty  -->
+	<ul>
+    	<li><img aura:id="PortalImage" class="cc" src="{!$Resource.PortalImage}"/></li>
+	</ul>
+    
+    
+    <aura:if isTrue="{! (empty(v.op_url))}">
+        <!-- empty url, the user is not yet created  -->
+        <h3> Registering user. Please wait... </h3>
+        
+        <aura:set attribute="else">
+            <!-- user created, show link to login -->
+            <h3> Success! Your account has been created </h3>
+            
+            <button class="slds-button slds-button_neutral" onclick="{!c.login}">Login</button>
+        </aura:set>
+    </aura:if>
+</aura:component>
